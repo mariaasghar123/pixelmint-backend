@@ -5,7 +5,10 @@ import { createClient } from '@supabase/supabase-js';
 export type User = {
   id: string;
   full_name: string;
+  email?: string;      // ✅ lowercase wali field
+  Email?: string; 
   phone?: string;
+  pixelsBought?: number;
 };
 
 @Injectable()
@@ -31,7 +34,7 @@ export class UsersService {
 
 async updateUser(
   id: string,
-  body: { full_name?: string; phone?: string },
+  body: { full_name?: string; phone?: string; username?: string; email?: string },
 ): Promise<User> {
   const response = await this.supabase
     .from('profiles')
