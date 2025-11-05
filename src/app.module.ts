@@ -8,6 +8,8 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { PixelsModule } from './pixels/pixels.module';
+import { AdminController } from './admin/admin.controller';
+import { AdminService } from './admin/admin.service';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { PixelsModule } from './pixels/pixels.module';
     UsersModule,
     PixelsModule,
   ],
-  controllers: [AppController, UsersController],
-  providers: [AppService, UsersService],
+  controllers: [AppController, UsersController, AdminController],
+  providers: [AppService, UsersService, AdminService],
 })
 export class AppModule {}

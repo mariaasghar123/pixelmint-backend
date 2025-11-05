@@ -16,25 +16,39 @@ export class UsersController {
     return await this.usersService.findById(userId);
   }
 
+  // Update user profile
   @UseGuards(AuthGuard)
-@Put('update')
-async updateProfile(
-  @Req() req: { user: { id: string } },
-  @Body() body: { full_name?: string; phone?: string },
-) {
-  try {
-    console.log("Updating user:", req.user.id, body); // ✅ kya aa raha hai
-    const updatedUser = await this.usersService.updateUser(req.user.id, body);
-    console.log("Updated data:", updatedUser); // ✅ success me kya aa raha hai
-    return updatedUser;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      console.error("Update Error:", err.message); // ✅ exact error
-    } else {
-      console.error("Update Error:", err); // fallback for non-Error types
+  @Put('update')
+  async updateProfile(
+    @Req() req: { user: { id: string } },
+    @Body() body: { full_name?: string; phone?: string },
+  ) {
+    try {
+      console.log("Updating user:", req.user.id, body);
+      const updatedUser = await this.usersService.updateUser(req.user.id, body);
+      console.log("Updated data:", updatedUser);
+      return updatedUser;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Update Error:", err.message);
+      } else {
+        console.error("Update Error:", err);
+      }
+      throw err;
     }
-    throw err; // 500 error fir bhi aayega lekin console me dekhenge reason
   }
-}
 
+  // ✅ Admin: Get total users
+  @Get('/admin/users/count')
+  async getUsersCount() {
+    const count = await this.usersService.countUsers();
+    return { count };
+  }
+
+  // ✅ Admin: Get total pixels sold
+  @Get('/admin/pixels/sold')
+  async getTotalPixelsSold() {
+    const total = await this.usersService.totalPixelsSold();
+    return { total };
+  }
 }
