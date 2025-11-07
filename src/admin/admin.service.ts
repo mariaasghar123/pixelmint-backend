@@ -19,4 +19,17 @@ export class AdminService {
     if (error || !data || data.length === 0) return null;
     return data[0];
   }
+
+  // payments.service.ts
+async getTotalSold() {
+  const { data, error } = await this.supabase
+    .from('purchases')
+    .select('pixels');
+
+  if (error) throw new Error(error.message);
+
+  const totalPixels = data.reduce((sum, item) => sum + item.pixels, 0);
+  return { totalPixels };
+}
+
 }

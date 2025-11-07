@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AdminService } from './admin.service';
 
 @Controller('admin')
@@ -15,4 +15,9 @@ export class AdminController {
       token: 'dummy-jwt-token', // Optional - Or generate real JWT
     };
   }
+  // payments.controller.ts
+@Get('/total-sold')
+async getTotalSold() {
+  return this.adminService.getTotalSold();
+}
 }

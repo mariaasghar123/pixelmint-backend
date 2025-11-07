@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Req, UseGuards } from '@nestjs/common';
+import { Controller,Get, Post, Body, Req, UseGuards } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 
@@ -35,5 +35,11 @@ export class PaymentsController {
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
     };
+  }
+  // ✅ NEW: Get all purchases for logged-in user
+  @Get('my-purchases')
+  async getUserPurchases(@Req() req) {
+    const userId = req.user.id;
+    return this.paymentsService.getUserPurchases(userId);
   }
 }

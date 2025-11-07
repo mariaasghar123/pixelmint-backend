@@ -62,4 +62,19 @@ export class PaymentsService {
 
     return paymentIntent;
   }
+  // ✅ NEW: Get user's purchases
+  async getUserPurchases(userId: string) {
+    const { data, error } = await this.supabase
+      .from('purchases')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching purchases:', error.message);
+      throw new Error('Failed to fetch purchases');
+    }
+
+    return data;
+  }
 }
