@@ -10,6 +10,8 @@ import { UsersModule } from './users/users.module';
 import { PixelsModule } from './pixels/pixels.module';
 import { AdminController } from './admin/admin.controller';
 import { AdminService } from './admin/admin.service';
+import { PaymentsController } from './payments/payments.controller';
+import { PaymentsService } from './payments/payments.service';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { AdminService } from './admin/admin.service';
     UsersModule,
     PixelsModule,
   ],
-  controllers: [AppController, UsersController, AdminController],
-  providers: [AppService, UsersService, AdminService],
+  controllers: [AppController, UsersController, AdminController, PaymentsController],
+  providers: [AppService, UsersService, AdminService, PaymentsService],
 })
 export class AppModule {}
